@@ -10,11 +10,11 @@ os.system('cythonize -i instagram/* /dev/null 2>&1 ')
 
 print("\n\n\n[!] removing files C extensions")
 try:
-    os.remove("instagram//*.c")
+    os.system("rm instagram/*.c")
 except: 
     pass
 try:
-    os.remove("run.c")
+    os.system("rm run.c")
 except: 
     pass
 
