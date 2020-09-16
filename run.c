@@ -1320,12 +1320,6 @@ static PyObject *__Pyx_CyFunction_New(PyMethodDef *ml,
                                       PyObject *module, PyObject *globals,
                                       PyObject* code);
 
-/* PySequenceContains.proto */
-static CYTHON_INLINE int __Pyx_PySequence_ContainsTF(PyObject* item, PyObject* seq, int eq) {
-    int result = PySequence_Contains(seq, item);
-    return unlikely(result < 0) ? result : (result == (eq == Py_EQ));
-}
-
 /* CLineInTraceback.proto */
 #ifdef CYTHON_CLINE_IN_TRACEBACK
 #define __Pyx_CLineForTraceback(tstate, c_line)  (((CYTHON_CLINE_IN_TRACEBACK)) ? c_line : 0)
@@ -1459,6 +1453,7 @@ static const char __pyx_k_eval[] = "eval";
 static const char __pyx_k_exit[] = "exit";
 static const char __pyx_k_info[] = "info";
 static const char __pyx_k_init[] = "init";
+static const char __pyx_k_json[] = "json";
 static const char __pyx_k_keys[] = "keys";
 static const char __pyx_k_kode[] = "kode";
 static const char __pyx_k_like[] = "like";
@@ -1610,6 +1605,7 @@ static const char __pyx_k_With_cookies[] = "With cookies";
 static const char __pyx_k_account_info[] = "account_info";
 static const char __pyx_k_checkpoint_2[] = " checkpoint";
 static const char __pyx_k_failed_login[] = " failed login";
+static const char __pyx_k_id_not_found[] = "id not found";
 static const char __pyx_k_mass_comment[] = "mass_comment";
 static const char __pyx_k_AbADHYnFSaeqW[] = "AbADHYnFSaeqW";
 static const char __pyx_k_B_y_a_s_m_i_n[] = "       B y  a s m i n       \n";
@@ -1617,6 +1613,7 @@ static const char __pyx_k_Finished_with[] = "Finished with ";
 static const char __pyx_k_Get_your_info[] = "Get your info";
 static const char __pyx_k_Please_wait_s[] = "] Please wait%s   ";
 static const char __pyx_k_Select_choice[] = "  [?] Select choice: ";
+static const char __pyx_k_active_period[] = "active_period";
 static const char __pyx_k_get_followers[] = "get_followers";
 static const char __pyx_k_get_following[] = "get_following";
 static const char __pyx_k_get_post_home[] = "get_post_home";
@@ -1661,12 +1658,16 @@ static const char __pyx_k_Followed_by_file_list[] = "Followed by file list";
 static const char __pyx_k_Mass_unfollow_account[] = "Mass unfollow account";
 static const char __pyx_k_Unfollow_all_following[] = "Unfollow all following";
 static const char __pyx_k_File_already_exist_with[] = "File already exist with ";
+static const char __pyx_k_Error_your_ID_has_expired[] = "  [!] Error: your ID has expired !";
 static const char __pyx_k_Konfirmasi_saya_dengan_id[] = "Konfirmasi saya dengan id: ";
 static const char __pyx_k_Do_you_want_to_replace_Y_n[] = "Do you want to replace? (Y/n)";
+static const char __pyx_k_Please_buy_the_active_period[] = "  [!] Please buy the active period";
 static const char __pyx_k_Spam_like_in_friend_timeline[] = "Spam like in friend timeline";
+static const char __pyx_k_you_have_reached_the_last_use[] = "you have reached the last use";
 static const char __pyx_k_Mass_unlike_in_friend_timeline[] = "Mass unlike in friend timeline";
 static const char __pyx_k_Press_enter_to_confirm_your_ID[] = "  [!] Press enter to confirm your ID";
 static const char __pyx_k_https_wa_me_6281242873775_text[] = "https://wa.me/6281242873775/?text=";
+static const char __pyx_k_Please_wait_for_it_to_be_confir[] = "  [!] Please wait for it to be confirmed";
 static const char __pyx_k_Spam_comment_in_people_timeline[] = "Spam comment in people timeline";
 static const char __pyx_k_WARN_Your_device_it_s_not_regis[] = " [WARN] Your device it's not registered yet.\n        Please register first!\n";
 static const char __pyx_k_File_separator_username_password[] = "File separator \"|\" (username|password)";
@@ -1705,6 +1706,7 @@ static PyObject *__pyx_kp_u_Dump_followers;
 static PyObject *__pyx_kp_u_Dump_following;
 static PyObject *__pyx_n_s_EOFError;
 static PyObject *__pyx_n_s_EXPASS;
+static PyObject *__pyx_kp_u_Error_your_ID_has_expired;
 static PyObject *__pyx_n_u_Exit;
 static PyObject *__pyx_kp_u_Expired;
 static PyObject *__pyx_kp_u_Failed_login;
@@ -1744,7 +1746,9 @@ static PyObject *__pyx_n_s_PENGHITUNG;
 static PyObject *__pyx_n_s_PIPE;
 static PyObject *__pyx_n_s_POSITION;
 static PyObject *__pyx_kp_u_Password;
+static PyObject *__pyx_kp_u_Please_buy_the_active_period;
 static PyObject *__pyx_kp_u_Please_login;
+static PyObject *__pyx_kp_u_Please_wait_for_it_to_be_confir;
 static PyObject *__pyx_kp_u_Please_wait_s;
 static PyObject *__pyx_n_s_Popen;
 static PyObject *__pyx_kp_u_Press_enter_to_confirm_your_ID;
@@ -1797,6 +1801,7 @@ static PyObject *__pyx_n_u_a;
 static PyObject *__pyx_n_s_account;
 static PyObject *__pyx_n_s_account_info;
 static PyObject *__pyx_n_s_action;
+static PyObject *__pyx_n_u_active_period;
 static PyObject *__pyx_n_u_am;
 static PyObject *__pyx_n_s_animate;
 static PyObject *__pyx_n_s_animation;
@@ -1862,6 +1867,7 @@ static PyObject *__pyx_kp_u_https_wa_me_6281242873775_text;
 static PyObject *__pyx_n_s_i;
 static PyObject *__pyx_n_s_id;
 static PyObject *__pyx_n_u_id;
+static PyObject *__pyx_kp_u_id_not_found;
 static PyObject *__pyx_n_u_id_post;
 static PyObject *__pyx_n_s_import;
 static PyObject *__pyx_n_s_info;
@@ -1875,6 +1881,7 @@ static PyObject *__pyx_n_u_is_followed;
 static PyObject *__pyx_n_s_is_logged;
 static PyObject *__pyx_n_s_is_password;
 static PyObject *__pyx_n_s_isdigit;
+static PyObject *__pyx_n_s_json;
 static PyObject *__pyx_n_s_keys;
 static PyObject *__pyx_n_s_kode;
 static PyObject *__pyx_n_s_like;
@@ -1963,6 +1970,7 @@ static PyObject *__pyx_n_u_w;
 static PyObject *__pyx_n_s_write;
 static PyObject *__pyx_n_u_y;
 static PyObject *__pyx_n_u_years;
+static PyObject *__pyx_kp_u_you_have_reached_the_last_use;
 static PyObject *__pyx_n_s_zip;
 static PyObject *__pyx_pf_3run_banner(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_user); /* proto */
 static PyObject *__pyx_pf_3run_2animate(CYTHON_UNUSED PyObject *__pyx_self); /* proto */
@@ -2034,6 +2042,9 @@ static PyObject *__pyx_tuple__70;
 static PyObject *__pyx_tuple__71;
 static PyObject *__pyx_tuple__72;
 static PyObject *__pyx_tuple__74;
+static PyObject *__pyx_tuple__75;
+static PyObject *__pyx_tuple__76;
+static PyObject *__pyx_tuple__77;
 static PyObject *__pyx_codeobj__30;
 static PyObject *__pyx_codeobj__33;
 static PyObject *__pyx_codeobj__35;
@@ -17702,6 +17713,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_kp_u_Dump_following, __pyx_k_Dump_following, sizeof(__pyx_k_Dump_following), 0, 1, 0, 0},
   {&__pyx_n_s_EOFError, __pyx_k_EOFError, sizeof(__pyx_k_EOFError), 0, 0, 1, 1},
   {&__pyx_n_s_EXPASS, __pyx_k_EXPASS, sizeof(__pyx_k_EXPASS), 0, 0, 1, 1},
+  {&__pyx_kp_u_Error_your_ID_has_expired, __pyx_k_Error_your_ID_has_expired, sizeof(__pyx_k_Error_your_ID_has_expired), 0, 1, 0, 0},
   {&__pyx_n_u_Exit, __pyx_k_Exit, sizeof(__pyx_k_Exit), 0, 1, 0, 1},
   {&__pyx_kp_u_Expired, __pyx_k_Expired, sizeof(__pyx_k_Expired), 0, 1, 0, 0},
   {&__pyx_kp_u_Failed_login, __pyx_k_Failed_login, sizeof(__pyx_k_Failed_login), 0, 1, 0, 0},
@@ -17741,7 +17753,9 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_PIPE, __pyx_k_PIPE, sizeof(__pyx_k_PIPE), 0, 0, 1, 1},
   {&__pyx_n_s_POSITION, __pyx_k_POSITION, sizeof(__pyx_k_POSITION), 0, 0, 1, 1},
   {&__pyx_kp_u_Password, __pyx_k_Password, sizeof(__pyx_k_Password), 0, 1, 0, 0},
+  {&__pyx_kp_u_Please_buy_the_active_period, __pyx_k_Please_buy_the_active_period, sizeof(__pyx_k_Please_buy_the_active_period), 0, 1, 0, 0},
   {&__pyx_kp_u_Please_login, __pyx_k_Please_login, sizeof(__pyx_k_Please_login), 0, 1, 0, 0},
+  {&__pyx_kp_u_Please_wait_for_it_to_be_confir, __pyx_k_Please_wait_for_it_to_be_confir, sizeof(__pyx_k_Please_wait_for_it_to_be_confir), 0, 1, 0, 0},
   {&__pyx_kp_u_Please_wait_s, __pyx_k_Please_wait_s, sizeof(__pyx_k_Please_wait_s), 0, 1, 0, 0},
   {&__pyx_n_s_Popen, __pyx_k_Popen, sizeof(__pyx_k_Popen), 0, 0, 1, 1},
   {&__pyx_kp_u_Press_enter_to_confirm_your_ID, __pyx_k_Press_enter_to_confirm_your_ID, sizeof(__pyx_k_Press_enter_to_confirm_your_ID), 0, 1, 0, 0},
@@ -17794,6 +17808,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_account, __pyx_k_account, sizeof(__pyx_k_account), 0, 0, 1, 1},
   {&__pyx_n_s_account_info, __pyx_k_account_info, sizeof(__pyx_k_account_info), 0, 0, 1, 1},
   {&__pyx_n_s_action, __pyx_k_action, sizeof(__pyx_k_action), 0, 0, 1, 1},
+  {&__pyx_n_u_active_period, __pyx_k_active_period, sizeof(__pyx_k_active_period), 0, 1, 0, 1},
   {&__pyx_n_u_am, __pyx_k_am, sizeof(__pyx_k_am), 0, 1, 0, 1},
   {&__pyx_n_s_animate, __pyx_k_animate, sizeof(__pyx_k_animate), 0, 0, 1, 1},
   {&__pyx_n_s_animation, __pyx_k_animation, sizeof(__pyx_k_animation), 0, 0, 1, 1},
@@ -17859,6 +17874,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
   {&__pyx_n_s_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 0, 1, 1},
   {&__pyx_n_u_id, __pyx_k_id, sizeof(__pyx_k_id), 0, 1, 0, 1},
+  {&__pyx_kp_u_id_not_found, __pyx_k_id_not_found, sizeof(__pyx_k_id_not_found), 0, 1, 0, 0},
   {&__pyx_n_u_id_post, __pyx_k_id_post, sizeof(__pyx_k_id_post), 0, 1, 0, 1},
   {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
   {&__pyx_n_s_info, __pyx_k_info, sizeof(__pyx_k_info), 0, 0, 1, 1},
@@ -17872,6 +17888,7 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_is_logged, __pyx_k_is_logged, sizeof(__pyx_k_is_logged), 0, 0, 1, 1},
   {&__pyx_n_s_is_password, __pyx_k_is_password, sizeof(__pyx_k_is_password), 0, 0, 1, 1},
   {&__pyx_n_s_isdigit, __pyx_k_isdigit, sizeof(__pyx_k_isdigit), 0, 0, 1, 1},
+  {&__pyx_n_s_json, __pyx_k_json, sizeof(__pyx_k_json), 0, 0, 1, 1},
   {&__pyx_n_s_keys, __pyx_k_keys, sizeof(__pyx_k_keys), 0, 0, 1, 1},
   {&__pyx_n_s_kode, __pyx_k_kode, sizeof(__pyx_k_kode), 0, 0, 1, 1},
   {&__pyx_n_s_like, __pyx_k_like, sizeof(__pyx_k_like), 0, 0, 1, 1},
@@ -17960,13 +17977,14 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_write, __pyx_k_write, sizeof(__pyx_k_write), 0, 0, 1, 1},
   {&__pyx_n_u_y, __pyx_k_y, sizeof(__pyx_k_y), 0, 1, 0, 1},
   {&__pyx_n_u_years, __pyx_k_years, sizeof(__pyx_k_years), 0, 1, 0, 1},
+  {&__pyx_kp_u_you_have_reached_the_last_use, __pyx_k_you_have_reached_the_last_use, sizeof(__pyx_k_you_have_reached_the_last_use), 0, 1, 0, 0},
   {&__pyx_n_s_zip, __pyx_k_zip, sizeof(__pyx_k_zip), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
   __pyx_builtin_print = __Pyx_GetBuiltinName(__pyx_n_s_print); if (!__pyx_builtin_print) __PYX_ERR(0, 527, __pyx_L1_error)
   __pyx_builtin_input = __Pyx_GetBuiltinName(__pyx_n_s_input); if (!__pyx_builtin_input) __PYX_ERR(0, 532, __pyx_L1_error)
-  __pyx_builtin_exit = __Pyx_GetBuiltinName(__pyx_n_s_exit); if (!__pyx_builtin_exit) __PYX_ERR(0, 562, __pyx_L1_error)
+  __pyx_builtin_exit = __Pyx_GetBuiltinName(__pyx_n_s_exit); if (!__pyx_builtin_exit) __PYX_ERR(0, 558, __pyx_L1_error)
   __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 74, __pyx_L1_error)
   __pyx_builtin_EOFError = __Pyx_GetBuiltinName(__pyx_n_s_EOFError); if (!__pyx_builtin_EOFError) __PYX_ERR(0, 79, __pyx_L1_error)
   __pyx_builtin_enumerate = __Pyx_GetBuiltinName(__pyx_n_s_enumerate); if (!__pyx_builtin_enumerate) __PYX_ERR(0, 88, __pyx_L1_error)
@@ -18370,8 +18388,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __pyx_codeobj__65 = (PyObject*)__Pyx_PyCode_New(3, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__64, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_run_py, __pyx_n_s_echo, 515, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__65)) __PYX_ERR(0, 515, __pyx_L1_error)
 
   /* "run.py":527
- *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").text
- *     if uid not in user:
+ *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").json()
+ *     if "id not found" in str(user):
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")             # <<<<<<<<<<<<<<
  *         print("   1). Trial one day")
  *         print("   2). Buy 30k 1 Month")
@@ -18381,7 +18399,7 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__66);
 
   /* "run.py":528
- *     if uid not in user:
+ *     if "id not found" in str(user):
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")
  *         print("   1). Trial one day")             # <<<<<<<<<<<<<<
  *         print("   2). Buy 30k 1 Month")
@@ -18462,11 +18480,44 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *         print('  [!] Your ID : ' + finalid)
  *         getpass('  [!] Press enter to confirm your ID')             # <<<<<<<<<<<<<<
  *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)
- *     else:
+ *         exit("  [!] Please wait for it to be confirmed")
  */
   __pyx_tuple__74 = PyTuple_Pack(1, __pyx_kp_u_Press_enter_to_confirm_your_ID); if (unlikely(!__pyx_tuple__74)) __PYX_ERR(0, 556, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__74);
   __Pyx_GIVEREF(__pyx_tuple__74);
+
+  /* "run.py":558
+ *         getpass('  [!] Press enter to confirm your ID')
+ *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)
+ *         exit("  [!] Please wait for it to be confirmed")             # <<<<<<<<<<<<<<
+ *     elif "you have reached the last use" in str(user):
+ *         print("  [!] Error: your ID has expired !")
+ */
+  __pyx_tuple__75 = PyTuple_Pack(1, __pyx_kp_u_Please_wait_for_it_to_be_confir); if (unlikely(!__pyx_tuple__75)) __PYX_ERR(0, 558, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__75);
+  __Pyx_GIVEREF(__pyx_tuple__75);
+
+  /* "run.py":560
+ *         exit("  [!] Please wait for it to be confirmed")
+ *     elif "you have reached the last use" in str(user):
+ *         print("  [!] Error: your ID has expired !")             # <<<<<<<<<<<<<<
+ *         exit("  [!] Please buy the active period")
+ *     elif "active_period" in str(user):
+ */
+  __pyx_tuple__76 = PyTuple_Pack(1, __pyx_kp_u_Error_your_ID_has_expired); if (unlikely(!__pyx_tuple__76)) __PYX_ERR(0, 560, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__76);
+  __Pyx_GIVEREF(__pyx_tuple__76);
+
+  /* "run.py":561
+ *     elif "you have reached the last use" in str(user):
+ *         print("  [!] Error: your ID has expired !")
+ *         exit("  [!] Please buy the active period")             # <<<<<<<<<<<<<<
+ *     elif "active_period" in str(user):
+ *         ses = Session(uid)
+ */
+  __pyx_tuple__77 = PyTuple_Pack(1, __pyx_kp_u_Please_buy_the_active_period); if (unlikely(!__pyx_tuple__77)) __PYX_ERR(0, 561, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__77);
+  __Pyx_GIVEREF(__pyx_tuple__77);
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -19283,7 +19334,7 @@ if (!__Pyx_RefNanny) {
  * 
  *     banner()             # <<<<<<<<<<<<<<
  *     uid = str(os.geteuid())
- *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").text
+ *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").json()
  */
     __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_banner); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 523, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
@@ -19296,8 +19347,8 @@ if (!__Pyx_RefNanny) {
  * 
  *     banner()
  *     uid = str(os.geteuid())             # <<<<<<<<<<<<<<
- *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").text
- *     if uid not in user:
+ *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").json()
+ *     if "id not found" in str(user):
  */
     __Pyx_GetModuleGlobalName(__pyx_t_1, __pyx_n_s_os); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 524, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
@@ -19316,8 +19367,8 @@ if (!__Pyx_RefNanny) {
     /* "run.py":525
  *     banner()
  *     uid = str(os.geteuid())
- *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").text             # <<<<<<<<<<<<<<
- *     if uid not in user:
+ *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").json()             # <<<<<<<<<<<<<<
+ *     if "id not found" in str(user):
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")
  */
     __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_requests); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 525, __pyx_L1_error)
@@ -19337,50 +19388,53 @@ if (!__Pyx_RefNanny) {
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_text); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 525, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_json); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 525, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (PyDict_SetItem(__pyx_d, __pyx_n_s_user, __pyx_t_2) < 0) __PYX_ERR(0, 525, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 525, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (PyDict_SetItem(__pyx_d, __pyx_n_s_user, __pyx_t_4) < 0) __PYX_ERR(0, 525, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
     /* "run.py":526
  *     uid = str(os.geteuid())
- *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").text
- *     if uid not in user:             # <<<<<<<<<<<<<<
+ *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").json()
+ *     if "id not found" in str(user):             # <<<<<<<<<<<<<<
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")
  *         print("   1). Trial one day")
  */
-    __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_uid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 526, __pyx_L1_error)
-    __Pyx_GOTREF(__pyx_t_2);
     __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_user); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 526, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_3 = (__Pyx_PySequence_ContainsTF(__pyx_t_2, __pyx_t_4, Py_NE)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 526, __pyx_L1_error)
-    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+    __pyx_t_2 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyUnicode_Type)), __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 526, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_3 = (__Pyx_PyUnicode_ContainsTF(__pyx_kp_u_id_not_found, __pyx_t_2, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 526, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     __pyx_t_5 = (__pyx_t_3 != 0);
     if (__pyx_t_5) {
 
       /* "run.py":527
- *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").text
- *     if uid not in user:
+ *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").json()
+ *     if "id not found" in str(user):
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")             # <<<<<<<<<<<<<<
  *         print("   1). Trial one day")
  *         print("   2). Buy 30k 1 Month")
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__66, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 527, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__66, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 527, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":528
- *     if uid not in user:
+ *     if "id not found" in str(user):
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")
  *         print("   1). Trial one day")             # <<<<<<<<<<<<<<
  *         print("   2). Buy 30k 1 Month")
  *         print("   3). Buy 50k 2 Month")
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__67, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 528, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__67, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 528, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":529
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")
@@ -19389,9 +19443,9 @@ if (!__Pyx_RefNanny) {
  *         print("   3). Buy 50k 2 Month")
  *         print("   4). Buy 100k 5 Month\n")
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__68, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 529, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__68, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 529, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":530
  *         print("   1). Trial one day")
@@ -19400,9 +19454,9 @@ if (!__Pyx_RefNanny) {
  *         print("   4). Buy 100k 5 Month\n")
  *         choice = input("  [?] Select choice: ")
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__69, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 530, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__69, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 530, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":531
  *         print("   2). Buy 30k 1 Month")
@@ -19411,9 +19465,9 @@ if (!__Pyx_RefNanny) {
  *         choice = input("  [?] Select choice: ")
  *         if choice == "1":
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__70, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 531, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__70, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 531, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":532
  *         print("   3). Buy 50k 2 Month")
@@ -19422,10 +19476,10 @@ if (!__Pyx_RefNanny) {
  *         if choice == "1":
  *             kode = ["TR", "AL"]
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__71, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 532, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      if (PyDict_SetItem(__pyx_d, __pyx_n_s_choice, __pyx_t_4) < 0) __PYX_ERR(0, 532, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__71, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 532, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      if (PyDict_SetItem(__pyx_d, __pyx_n_s_choice, __pyx_t_2) < 0) __PYX_ERR(0, 532, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":533
  *         print("   4). Buy 100k 5 Month\n")
@@ -19434,10 +19488,10 @@ if (!__Pyx_RefNanny) {
  *             kode = ["TR", "AL"]
  *             masa = "trial"
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_choice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 533, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_kp_u_1, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 533, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 533, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_kp_u_1, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 533, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_5) {
 
         /* "run.py":534
@@ -19447,16 +19501,16 @@ if (!__Pyx_RefNanny) {
  *             masa = "trial"
  *         elif choice == "2":
  */
-        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 534, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 534, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_n_u_TR);
         __Pyx_GIVEREF(__pyx_n_u_TR);
-        PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_u_TR);
+        PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_TR);
         __Pyx_INCREF(__pyx_n_u_AL);
         __Pyx_GIVEREF(__pyx_n_u_AL);
-        PyList_SET_ITEM(__pyx_t_4, 1, __pyx_n_u_AL);
-        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_4) < 0) __PYX_ERR(0, 534, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_AL);
+        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_2) < 0) __PYX_ERR(0, 534, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
         /* "run.py":535
  *         if choice == "1":
@@ -19484,10 +19538,10 @@ if (!__Pyx_RefNanny) {
  *             kode = ["On", "On"]
  *             masa = "dayss"
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_choice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 536, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_kp_u_2, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 536, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 536, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_kp_u_2, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 536, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_5) {
 
         /* "run.py":537
@@ -19497,16 +19551,16 @@ if (!__Pyx_RefNanny) {
  *             masa = "dayss"
  *         elif choice == "3":
  */
-        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 537, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 537, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_n_u_On);
         __Pyx_GIVEREF(__pyx_n_u_On);
-        PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_u_On);
+        PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_On);
         __Pyx_INCREF(__pyx_n_u_On);
         __Pyx_GIVEREF(__pyx_n_u_On);
-        PyList_SET_ITEM(__pyx_t_4, 1, __pyx_n_u_On);
-        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_4) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_On);
+        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_2) < 0) __PYX_ERR(0, 537, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
         /* "run.py":538
  *         elif choice == "2":
@@ -19534,10 +19588,10 @@ if (!__Pyx_RefNanny) {
  *             kode = ["Mo", "Tw"]
  *             masa = "month"
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_choice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 539, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_kp_u_3, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 539, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_kp_u_3, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 539, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_5) {
 
         /* "run.py":540
@@ -19547,16 +19601,16 @@ if (!__Pyx_RefNanny) {
  *             masa = "month"
  *         elif choice == "4":
  */
-        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 540, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 540, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_n_u_Mo);
         __Pyx_GIVEREF(__pyx_n_u_Mo);
-        PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_u_Mo);
+        PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_Mo);
         __Pyx_INCREF(__pyx_n_u_Tw);
         __Pyx_GIVEREF(__pyx_n_u_Tw);
-        PyList_SET_ITEM(__pyx_t_4, 1, __pyx_n_u_Tw);
-        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_4) < 0) __PYX_ERR(0, 540, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_Tw);
+        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_2) < 0) __PYX_ERR(0, 540, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
         /* "run.py":541
  *         elif choice == "3":
@@ -19584,10 +19638,10 @@ if (!__Pyx_RefNanny) {
  *             kode = ["Ye", "OY"]
  *             masa = "years"
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_choice); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 542, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_4, __pyx_kp_u_4, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 542, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 542, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_5 = (__Pyx_PyUnicode_Equals(__pyx_t_2, __pyx_kp_u_4, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 542, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (__pyx_t_5) {
 
         /* "run.py":543
@@ -19597,16 +19651,16 @@ if (!__Pyx_RefNanny) {
  *             masa = "years"
  *         name = input("  [?] Your name: ")
  */
-        __pyx_t_4 = PyList_New(2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 543, __pyx_L1_error)
-        __Pyx_GOTREF(__pyx_t_4);
+        __pyx_t_2 = PyList_New(2); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 543, __pyx_L1_error)
+        __Pyx_GOTREF(__pyx_t_2);
         __Pyx_INCREF(__pyx_n_u_Ye);
         __Pyx_GIVEREF(__pyx_n_u_Ye);
-        PyList_SET_ITEM(__pyx_t_4, 0, __pyx_n_u_Ye);
+        PyList_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_Ye);
         __Pyx_INCREF(__pyx_n_u_OY);
         __Pyx_GIVEREF(__pyx_n_u_OY);
-        PyList_SET_ITEM(__pyx_t_4, 1, __pyx_n_u_OY);
-        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_4) < 0) __PYX_ERR(0, 543, __pyx_L1_error)
-        __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+        PyList_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_OY);
+        if (PyDict_SetItem(__pyx_d, __pyx_n_s_kode, __pyx_t_2) < 0) __PYX_ERR(0, 543, __pyx_L1_error)
+        __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
         /* "run.py":544
  *         elif choice == "4":
@@ -19634,10 +19688,10 @@ if (!__Pyx_RefNanny) {
  *         finalid = (
  *             kode[0] + random.choice(
  */
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__72, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 545, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      if (PyDict_SetItem(__pyx_d, __pyx_n_s_name, __pyx_t_4) < 0) __PYX_ERR(0, 545, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_builtin_input, __pyx_tuple__72, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 545, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      if (PyDict_SetItem(__pyx_d, __pyx_n_s_name, __pyx_t_2) < 0) __PYX_ERR(0, 545, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":547
  *         name = input("  [?] Your name: ")
@@ -19646,16 +19700,16 @@ if (!__Pyx_RefNanny) {
  *                 list('AbADHYnFSaeqW')
  *                 ) + kode[0] + uid + kode[1] + masa.upper())[::-1]
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_kode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_4, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_kode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_random); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_2, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_random); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_1 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_choice); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_1);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":548
  *         finalid = (
@@ -19664,8 +19718,8 @@ if (!__Pyx_RefNanny) {
  *                 ) + kode[0] + uid + kode[1] + masa.upper())[::-1]
  *         text = "Konfirmasi saya dengan id: " + finalid
  */
-      __pyx_t_4 = PySequence_List(__pyx_n_u_AbADHYnFSaeqW); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 548, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_2 = PySequence_List(__pyx_n_u_AbADHYnFSaeqW); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 548, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
 
       /* "run.py":547
  *         name = input("  [?] Your name: ")
@@ -19674,13 +19728,13 @@ if (!__Pyx_RefNanny) {
  *                 list('AbADHYnFSaeqW')
  *                 ) + kode[0] + uid + kode[1] + masa.upper())[::-1]
  */
-      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __pyx_t_6 = __Pyx_PyObject_CallOneArg(__pyx_t_1, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 547, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 547, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyNumber_Add(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 547, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
       /* "run.py":549
@@ -19692,43 +19746,43 @@ if (!__Pyx_RefNanny) {
  */
       __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_kode); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_2 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = PyNumber_Add(__pyx_t_4, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_uid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = PyNumber_Add(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __pyx_t_4 = __Pyx_GetItemInt(__pyx_t_6, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_kode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_2, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __pyx_t_6 = PyNumber_Add(__pyx_t_2, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyNumber_Add(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_masa); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_upper); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_uid); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_2 = PyNumber_Add(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_kode); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_6 = __Pyx_GetItemInt(__pyx_t_4, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __pyx_t_4 = PyNumber_Add(__pyx_t_2, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_4, __pyx_slice__73); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_masa); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
+      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_6, __pyx_n_s_upper); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = PyNumber_Add(__pyx_t_4, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __pyx_t_6 = __Pyx_PyObject_GetItem(__pyx_t_2, __pyx_slice__73); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 549, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
       if (PyDict_SetItem(__pyx_d, __pyx_n_s_finalid, __pyx_t_6) < 0) __PYX_ERR(0, 546, __pyx_L1_error)
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
@@ -19741,11 +19795,11 @@ if (!__Pyx_RefNanny) {
  */
       __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_finalid); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 550, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __pyx_t_4 = PyNumber_Add(__pyx_kp_u_Konfirmasi_saya_dengan_id, __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 550, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_2 = PyNumber_Add(__pyx_kp_u_Konfirmasi_saya_dengan_id, __pyx_t_6); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 550, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      if (PyDict_SetItem(__pyx_d, __pyx_n_s_text, __pyx_t_4) < 0) __PYX_ERR(0, 550, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (PyDict_SetItem(__pyx_d, __pyx_n_s_text, __pyx_t_2) < 0) __PYX_ERR(0, 550, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":551
  *                 ) + kode[0] + uid + kode[1] + masa.upper())[::-1]
@@ -19754,11 +19808,11 @@ if (!__Pyx_RefNanny) {
  *                 'https://instatools-app.herokuapp.com/signin?raw=' +
  *                 finalid
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_requests); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_get); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_requests); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_6 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_get); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 551, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":553
  *         requests.get(
@@ -19767,8 +19821,8 @@ if (!__Pyx_RefNanny) {
  *                 ).text
  *         print('  [!] Your ID : ' + finalid)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_finalid); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 553, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_finalid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 553, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
 
       /* "run.py":552
  *         text = "Konfirmasi saya dengan id: " + finalid
@@ -19777,9 +19831,9 @@ if (!__Pyx_RefNanny) {
  *                 finalid
  *                 ).text
  */
-      __pyx_t_2 = PyNumber_Add(__pyx_kp_u_https_instatools_app_herokuapp_c_2, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 552, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyNumber_Add(__pyx_kp_u_https_instatools_app_herokuapp_c_2, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 552, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":551
  *                 ) + kode[0] + uid + kode[1] + masa.upper())[::-1]
@@ -19788,10 +19842,10 @@ if (!__Pyx_RefNanny) {
  *                 'https://instatools-app.herokuapp.com/signin?raw=' +
  *                 finalid
  */
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 551, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 551, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
       /* "run.py":554
  *                 'https://instatools-app.herokuapp.com/signin?raw=' +
@@ -19800,10 +19854,10 @@ if (!__Pyx_RefNanny) {
  *         print('  [!] Your ID : ' + finalid)
  *         getpass('  [!] Press enter to confirm your ID')
  */
-      __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_4, __pyx_n_s_text); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 554, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_text); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 554, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
       /* "run.py":555
  *                 finalid
@@ -19812,65 +19866,76 @@ if (!__Pyx_RefNanny) {
  *         getpass('  [!] Press enter to confirm your ID')
  *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_finalid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = PyNumber_Add(__pyx_kp_u_Your_ID, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_finalid); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
+      __pyx_t_2 = PyNumber_Add(__pyx_kp_u_Your_ID, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 555, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_builtin_print, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 555, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
       /* "run.py":556
  *                 ).text
  *         print('  [!] Your ID : ' + finalid)
  *         getpass('  [!] Press enter to confirm your ID')             # <<<<<<<<<<<<<<
  *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)
- *     else:
+ *         exit("  [!] Please wait for it to be confirmed")
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_getpass); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_tuple__74, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_getpass); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 556, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __pyx_t_2 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_tuple__74, NULL); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 556, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
       /* "run.py":557
  *         print('  [!] Your ID : ' + finalid)
  *         getpass('  [!] Press enter to confirm your ID')
  *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)             # <<<<<<<<<<<<<<
- *     else:
- *         ses = Session(uid)
+ *         exit("  [!] Please wait for it to be confirmed")
+ *     elif "you have reached the last use" in str(user):
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_echo); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_echo); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_text); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 557, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_text); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 557, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_6 = PyNumber_Add(__pyx_kp_u_https_wa_me_6281242873775_text, __pyx_t_2); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 557, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      __pyx_t_2 = PyTuple_New(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 557, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __Pyx_INCREF(__pyx_n_u_am);
-      __Pyx_GIVEREF(__pyx_n_u_am);
-      PyTuple_SET_ITEM(__pyx_t_2, 0, __pyx_n_u_am);
-      __Pyx_INCREF(__pyx_n_u_start);
-      __Pyx_GIVEREF(__pyx_n_u_start);
-      PyTuple_SET_ITEM(__pyx_t_2, 1, __pyx_n_u_start);
-      __Pyx_GIVEREF(__pyx_t_6);
-      PyTuple_SET_ITEM(__pyx_t_2, 2, __pyx_t_6);
-      __pyx_t_6 = 0;
-      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_4, __pyx_t_2, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __pyx_t_6 = PyNumber_Add(__pyx_kp_u_https_wa_me_6281242873775_text, __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 557, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __pyx_t_4 = PyTuple_New(3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_INCREF(__pyx_n_u_am);
+      __Pyx_GIVEREF(__pyx_n_u_am);
+      PyTuple_SET_ITEM(__pyx_t_4, 0, __pyx_n_u_am);
+      __Pyx_INCREF(__pyx_n_u_start);
+      __Pyx_GIVEREF(__pyx_n_u_start);
+      PyTuple_SET_ITEM(__pyx_t_4, 1, __pyx_n_u_start);
+      __Pyx_GIVEREF(__pyx_t_6);
+      PyTuple_SET_ITEM(__pyx_t_4, 2, __pyx_t_6);
+      __pyx_t_6 = 0;
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_t_2, __pyx_t_4, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 557, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+
+      /* "run.py":558
+ *         getpass('  [!] Press enter to confirm your ID')
+ *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)
+ *         exit("  [!] Please wait for it to be confirmed")             # <<<<<<<<<<<<<<
+ *     elif "you have reached the last use" in str(user):
+ *         print("  [!] Error: your ID has expired !")
+ */
+      __pyx_t_6 = __Pyx_PyObject_Call(__pyx_builtin_exit, __pyx_tuple__75, NULL); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 558, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
       __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
 
       /* "run.py":526
  *     uid = str(os.geteuid())
- *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").text
- *     if uid not in user:             # <<<<<<<<<<<<<<
+ *     user = requests.get(f"https://instatools-app.herokuapp.com/member/{uid}").json()
+ *     if "id not found" in str(user):             # <<<<<<<<<<<<<<
  *         print(" [WARN] Your device it's not registered yet.\n        Please register first!\n")
  *         print("   1). Trial one day")
  */
@@ -19879,33 +19944,123 @@ if (!__Pyx_RefNanny) {
 
     /* "run.py":559
  *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)
- *     else:
- *         ses = Session(uid)             # <<<<<<<<<<<<<<
- *         main()
- * else:
+ *         exit("  [!] Please wait for it to be confirmed")
+ *     elif "you have reached the last use" in str(user):             # <<<<<<<<<<<<<<
+ *         print("  [!] Error: your ID has expired !")
+ *         exit("  [!] Please buy the active period")
  */
-    /*else*/ {
-      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_Session); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 559, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_6);
-      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_uid); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 559, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_2);
-      __pyx_t_4 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 559, __pyx_L1_error)
-      __Pyx_GOTREF(__pyx_t_4);
-      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
-      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-      if (PyDict_SetItem(__pyx_d, __pyx_n_s_ses, __pyx_t_4) < 0) __PYX_ERR(0, 559, __pyx_L1_error)
-      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_user); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 559, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __pyx_t_4 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyUnicode_Type)), __pyx_t_6); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 559, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_5 = (__Pyx_PyUnicode_ContainsTF(__pyx_kp_u_you_have_reached_the_last_use, __pyx_t_4, Py_EQ)); if (unlikely(__pyx_t_5 < 0)) __PYX_ERR(0, 559, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_3 = (__pyx_t_5 != 0);
+    if (__pyx_t_3) {
 
       /* "run.py":560
+ *         exit("  [!] Please wait for it to be confirmed")
+ *     elif "you have reached the last use" in str(user):
+ *         print("  [!] Error: your ID has expired !")             # <<<<<<<<<<<<<<
+ *         exit("  [!] Please buy the active period")
+ *     elif "active_period" in str(user):
+ */
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_print, __pyx_tuple__76, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+      /* "run.py":561
+ *     elif "you have reached the last use" in str(user):
+ *         print("  [!] Error: your ID has expired !")
+ *         exit("  [!] Please buy the active period")             # <<<<<<<<<<<<<<
+ *     elif "active_period" in str(user):
+ *         ses = Session(uid)
+ */
+      __pyx_t_4 = __Pyx_PyObject_Call(__pyx_builtin_exit, __pyx_tuple__77, NULL); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 561, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+      /* "run.py":559
+ *         echo("am", "start", "https://wa.me/6281242873775/?text=" + text)
+ *         exit("  [!] Please wait for it to be confirmed")
+ *     elif "you have reached the last use" in str(user):             # <<<<<<<<<<<<<<
+ *         print("  [!] Error: your ID has expired !")
+ *         exit("  [!] Please buy the active period")
+ */
+      goto __pyx_L3;
+    }
+
+    /* "run.py":562
+ *         print("  [!] Error: your ID has expired !")
+ *         exit("  [!] Please buy the active period")
+ *     elif "active_period" in str(user):             # <<<<<<<<<<<<<<
+ *         ses = Session(uid)
+ *         main()
+ */
+    __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_user); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 562, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_4);
+    __pyx_t_6 = __Pyx_PyObject_CallOneArg(((PyObject *)(&PyUnicode_Type)), __pyx_t_4); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 562, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_6);
+    __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+    __pyx_t_3 = (__Pyx_PyUnicode_ContainsTF(__pyx_n_u_active_period, __pyx_t_6, Py_EQ)); if (unlikely(__pyx_t_3 < 0)) __PYX_ERR(0, 562, __pyx_L1_error)
+    __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+    __pyx_t_5 = (__pyx_t_3 != 0);
+    if (__pyx_t_5) {
+
+      /* "run.py":563
+ *         exit("  [!] Please buy the active period")
+ *     elif "active_period" in str(user):
+ *         ses = Session(uid)             # <<<<<<<<<<<<<<
+ *         main()
  *     else:
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_6, __pyx_n_s_Session); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_6);
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_uid); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_t_6, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 563, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __Pyx_DECREF(__pyx_t_6); __pyx_t_6 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+      if (PyDict_SetItem(__pyx_d, __pyx_n_s_ses, __pyx_t_2) < 0) __PYX_ERR(0, 563, __pyx_L1_error)
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+      /* "run.py":564
+ *     elif "active_period" in str(user):
  *         ses = Session(uid)
  *         main()             # <<<<<<<<<<<<<<
+ *     else:
+ *         exit(user)
+ */
+      __Pyx_GetModuleGlobalName(__pyx_t_2, __pyx_n_s_main); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 564, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_2);
+      __pyx_t_4 = __Pyx_PyObject_CallNoArg(__pyx_t_2); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 564, __pyx_L1_error)
+      __Pyx_GOTREF(__pyx_t_4);
+      __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+      __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
+
+      /* "run.py":562
+ *         print("  [!] Error: your ID has expired !")
+ *         exit("  [!] Please buy the active period")
+ *     elif "active_period" in str(user):             # <<<<<<<<<<<<<<
+ *         ses = Session(uid)
+ *         main()
+ */
+      goto __pyx_L3;
+    }
+
+    /* "run.py":566
+ *         main()
+ *     else:
+ *         exit(user)             # <<<<<<<<<<<<<<
  * else:
  *     exit()
  */
-      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_main); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 560, __pyx_L1_error)
+    /*else*/ {
+      __Pyx_GetModuleGlobalName(__pyx_t_4, __pyx_n_s_user); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 566, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_4);
-      __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 560, __pyx_L1_error)
+      __pyx_t_2 = __Pyx_PyObject_CallOneArg(__pyx_builtin_exit, __pyx_t_4); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 566, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
       __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -19922,13 +20077,13 @@ if (!__Pyx_RefNanny) {
     goto __pyx_L2;
   }
 
-  /* "run.py":562
- *         main()
+  /* "run.py":568
+ *         exit(user)
  * else:
  *     exit()             # <<<<<<<<<<<<<<
  */
   /*else*/ {
-    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_exit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 562, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyObject_CallNoArg(__pyx_builtin_exit); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 568, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
